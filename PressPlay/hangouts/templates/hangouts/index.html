@@ -7,7 +7,8 @@
 		
 		<form action="{% url 'hangouts:playlist' %}" method="post">
 			{% csrf_token %}
-			Username: <input name="user1_name" id="user1_name" type="text" /> <br />
+			User 1: <input name="user1_name" id="user1_name" type="text" /> <br />
+			User 2: <input name="user2_name" id="user2_name" type="text" /> <br />
 			<input type="submit" name="Play" />
 		</form>
 	</body>
