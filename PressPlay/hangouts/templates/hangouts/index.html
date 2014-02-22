@@ -1,8 +1,29 @@
 <html>
 	<head>
 		<title>PressPlay</title>
+		<script src="http://connect.soundcloud.com/sdk.js"></script>
+			<script>
+			// initialize client with app credentials
+			SC.initialize({
+  				client_id: 'd05accec0d8806ca775fd78523f6832a',
+  				redirect_uri: '{% url 'hangouts:callback' %}'
+			});
+
+			// initiate auth popup
+			SC.connect(function() {
+  				SC.get('/me', function(me) { 
+    				alert('Hello, ' + me.username); 
+  				});
+			});
+		</script>
 	</head>
 	<body>
 		<h1>Index</h1>
+		
+		<form action="{% url 'hangouts:playlist' %}" method="post">
+			{% csrf_token %}
+			Username: <input name="user1_name" id="user1_name" type="text" /> <br />
+			<input type="submit" name="Play" />
+		</form>
 	</body>
 </html>
