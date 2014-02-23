@@ -26,7 +26,7 @@ def get_sorted_tracks(client, ids):
 	playlists_pts = 7
 
 	track_ids = {}
-	following_points = 3
+	following_points = 2
 
 	# Find all tracks that users have favourited.
 	for user in ids:
@@ -67,12 +67,12 @@ def get_sorted_tracks(client, ids):
 	for p in playlists:
 		print "Playlists: " 
 		print "Tracks: "
-		print p.tracks[0].state
+		print p.tracks[0][u'id']
 		for t in p.tracks:
-			if t[0] in track_ids:
-				track_ids[t.id] += playlists_pts
+			if t[u'id'] in track_ids:
+				track_ids[t[u'id']] += playlists_pts
 			else:
-				track_ids[t.id] = playlists_pts
+				track_ids[t[u'id']] = playlists_pts
 
 	# Return a list of sorted track ids based on each songs rank.
 	sorted_tracks = sorted(track_ids, key=track_ids.get)
