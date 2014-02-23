@@ -21,6 +21,7 @@ def get_users(client, request):
 	return ids
 
 def populate_user(client, user_name):
+	print "USER_NAME: " + user_name
 	user_id = str(client.get('/resolve', url='https://soundcloud.com/' + user_name).id)
 	user = Users(user_id=user_id, user_name=user_name)
 	user.save()
@@ -187,7 +188,7 @@ def playlist(request):
 	)
 
 	for key,val in request.POST.iteritems():
-		if "user_name" in key:
+		if "user_name" in key and val != "":
 			if len(Users.objects.filter(user_name=str(val))) == 0:
 				populate_user(client, val)
 
