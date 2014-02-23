@@ -20,19 +20,24 @@ def get_users(client, request):
 	return ids
 
 def get_sorted_tracks(client, ids):
-	tracks = []
+	fav_tracks = []
+	playlists = []
+	favs_pts = 10
+	playlists_pts = 7
+
 	track_ids = {}
 	following_points = 3
 
 	# Find all tracks that users have favourited.
 	for user in ids:
-		tracks = tracks + list(client.get('/users/' + str(user) + '/favorites'))
+		fav_tracks = fav_tracks + list(client.get('/users/' + str(user) + '/favorites'))
+			
 	# Count how many users have favourited each song.
-	for t in tracks:
+	for t in fav_tracks:
 		if t.id in track_ids:
-			track_ids[t.id] += 1
+			track_ids[t.id] += favs_pts
 		else:
-			track_ids[t.id] = 1
+			track_ids[t.id] = favs_pts
 
 	print "GET FOLLOWERS"
 	# Get the list of users followed by each user. 
@@ -53,6 +58,21 @@ def get_sorted_tracks(client, ids):
 			track_ids[t.id] += following_points
 		else:
 			track_ids[t.id] = following_points
+
+	#Find all the playlists for each user
+	for user in ids:
+		playlists = playlists + list(client.get('/users/' + str(user) + '/playlists'))
+
+	#Count how many user have a song in one of their playlists
+	for p in playlists:
+		print "Playlists: " 
+		print "Tracks: "
+		print p.tracks[0].state
+		for t in p.tracks:
+			if t[0] in track_ids:
+				track_ids[t.id] += playlists_pts
+			else:
+				track_ids[t.id] = playlists_pts
 
 	# Return a list of sorted track ids based on each songs rank.
 	sorted_tracks = sorted(track_ids, key=track_ids.get)
