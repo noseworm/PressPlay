@@ -54,3 +54,6 @@ class UserPlaylist(models.Model):
 	playlist = models.ForeignKey('Playlists')
 	def __unicode__(self):
 		return self.user.user_name + ' -> ' + self.playlist.playlist_id
+
+class Democracy(models.Model):
+	thefineline = models.IntegerField(default=0)

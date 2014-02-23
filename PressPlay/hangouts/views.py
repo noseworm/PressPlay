@@ -1,7 +1,7 @@
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
-from hangouts.models import Users, Tracks, Playlists, Favourites, ArtistOf, TrackOnPlaylist, UserPlaylist, Following
+from hangouts.models import Users, Tracks, Playlists, Favourites, ArtistOf, TrackOnPlaylist, UserPlaylist, Following, Democracy
 import soundcloud
 
 # Index will contain a form for entering user information to generate the playlist.
@@ -205,8 +205,18 @@ def playlist(request):
 	context = RequestContext(request, {'embed_playlist': embed_info.html},)
 	return HttpResponse(template.render(context))
 
-def callback(request):
-	template = loader.get_template('hangouts/callback.html')
-	context = RequestContext(request, {},)
-	return HttpResponse(template.render(context))
+def Democracy(decision):
+	
+
+	if decision == 1:
+		government = Democracy(thefineline = government.thefineline+1)
+
+	if decision == -1:
+		government = Democracy(thefineline = government.thefineline-1)
+
+	if(government.thefineline == -5):
+		HttpResponseRedirect("/hangouts/playlists.html")
+
+
+
 
