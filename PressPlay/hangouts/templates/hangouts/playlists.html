@@ -30,12 +30,12 @@
     <link href="cover.css" rel="stylesheet">
     <link type="text/css" href="{% static 'hangouts/css/bootstrap.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'hangouts/css/bootstrap-theme.css' %}" rel="stylesheet">
-
+ <!--
     <style> 
 background-image:url('winter-forest.jpg');
-<div id="fullscreen_post_bg" class="fullscreen_post_bg" style="background-image:url('https://24.media.tumblr.com/3a2411f858088deafbca57552723e460/tumblr_mvyrk1GQrT1r2lw7ro1_1280.jpg');"><img id="fullscreen_post_image" src="https://24.media.tumblr.com/3a2411f858088deafbca57552723e460/tumblr_mvyrk1GQrT1r2lw7ro1_1280.jpg" </div>
+ <div id="fullscreen_post_bg" class="fullscreen_post_bg" style="background-image:url('https://24.media.tumblr.com/3a2411f858088deafbca57552723e460/tumblr_mvyrk1GQrT1r2lw7ro1_1280.jpg');"> </div> 
 	</style>
-
+-->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -44,7 +44,9 @@ background-image:url('winter-forest.jpg');
     <![endif]-->
   </head>
 
-  <body>
+  <body style="background-image:url('https://24.media.tumblr.com/3a2411f858088deafbca57552723e460/tumblr_mvyrk1GQrT1r2lw7ro1_1280.jpg')" >
+<div >
+    
 
     <div class="site-wrapper">
 
@@ -56,15 +58,23 @@ background-image:url('winter-forest.jpg');
           <div class="masthead clearfix">
           </div>
 
-          <div class="inner cover">
+          <div style="text-align:center;" >
 
             <h1 class="cover-heading">Listening to:</h1>
 		{{ embed_playlist |safe }}
-            <p>Created by Mike Noseworthy, Brendan Gordon,  Rachel Bergmann, and Pascale Gourdeau at McHacks at McGill University in February 2014.</p>
-            <p class="lead">
-            <form action="{% url 'hangouts:index' %}" method="post">
-              <a href="#" class="btn btn-lg btn-default">Go back</a>
+
+
+     <form action="{% url 'hangouts:index' %}" method="post">
+              <a href="#" class="btn btn-lg btn-default2" >HATE IT</a>
+              <a href="#" class="btn btn-lg btn-default"> PressPlay Again?</a>
+              <a href="#" class="btn btn-lg btn-default3">LOVE IT</a>
             </form>
+
+
+
+            <p style:"margin-bottom:10px;">Created by Rachel Bergmann, Brendan Gordon, Pascale Gourdeau, and Mike Noseworthy at McHacks at McGill University in February 2014.</p>
+            <p class="lead">
+           
               <!--<input type="submit" name="Play" />-->
               <!-- <button onclick="window.location='http://www.google.com'">Click Me</button> -->
 
@@ -72,8 +82,8 @@ background-image:url('winter-forest.jpg');
           </div>
 
           <div class="mastfoot">
-            <div class="inner">
-              <p size: 10>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+            <div class="inner" >
+              <p size: 10;> Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
             </div>
           </div>
 
@@ -89,5 +99,6 @@ background-image:url('winter-forest.jpg');
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>
     <script src="../../assets/js/docs.min.js"></script>
+  </div>
   </body>
 </html>

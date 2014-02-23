@@ -44,7 +44,7 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <!--<script>
+   <!-- <script>
     var counter = 2;
     var limit = 10;
     function addInput(divName){
@@ -59,22 +59,39 @@
           counter++;
      }
 }
-</script> -->
+</script>-->
   </head>
 
-  <body>
+
+
+
+  <body style="background-image:url('https://24.media.tumblr.com/3a2411f858088deafbca57552723e460/tumblr_mvyrk1GQrT1r2lw7ro1_1280.jpg');">
+
+<script stype="text/javascript" src="addInput.js" ></script>
+<form method="POST">
+     <div id="dynamicInput">
+          Entry 1<input type="text" name="myInputs[]">
+     </div>
+     <input type="button" value="Add another text input" onClick="addInput('dynamicInput')">
+</form>
 
     <fieldset>
 <form class="form-signin" role="form" action="{% url 'hangouts:playlist' %}" method="post">
+<div>
+	
 <div id="dynamicInput">
+	     <div style="text-align:center">
   <h2 class="form-signin-heading">Please add a Soundcloud username</h2>
         {% csrf_token %}
-        <input type="text" class="form-control" placeholder="username" name="user_name1" required autofocus>
-        <input type="text" class="form-control" placeholder="username" name="user_name2">
-        <input type="text" class="form-control" placeholder="username" name="user_name3">
-</div>
-<!--<input type="button" value="Add another user" onClick="addInput('dynamicInput');"><br /> -->
-<button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Hang out</button>
+    
+        <input type="text" class="form-control" placeholder="username" name="user_name1" required autofocus style="width:250px">
+
+        <!--<input type="text" class="form-control" placeholder="username" name="user_name2">
+        <input type="text" class="form-control" placeholder="username" name="user_name3"> -->
+
+<button class="btn btn-lg btn-primary" type="submit" id="submit">Hang out</button>
+
+ </div>
 </form>
 </fieldset>
 

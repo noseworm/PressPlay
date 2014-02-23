@@ -2043,6 +2043,19 @@ fieldset[disabled] .btn {
   background-color: #fff;
   border-color: #ccc;
 }
+
+.btn-default2 {
+  color: red;
+  background-color: #fff;
+  border-color: #ccc;
+}
+.btn-default3{
+  color: green;
+  background-color: #fff;
+  border-color: #ccc;
+}
+
+
 .btn-default:hover,
 .btn-default:focus,
 .btn-default:active,
