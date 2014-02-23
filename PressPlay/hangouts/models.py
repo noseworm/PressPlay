@@ -40,7 +40,7 @@ class TrackOnPlaylist(models.Model):
 	track = models.ForeignKey('Tracks')
 	playlist = models.ForeignKey('Playlists')
 	def __unicode__(self):
-		return str(self.playlist_id) + ' -> ' + str(self.track.track_title)
+		return self.playlist.playlist_id + ' -> ' + self.track.track_title
 
 # Contains the relationship between a user and his/her followers.
 class Following(models.Model):
@@ -53,7 +53,7 @@ class UserPlaylist(models.Model):
 	user = models.ForeignKey('Users')
 	playlist = models.ForeignKey('Playlists')
 	def __unicode__(self):
-		return self.user.user_name + ' -> ' + self.playlist.playlist_id
+		return self.user.user_name + ' -> ' + str(self.playlist.playlist_id)
 
 class Democracy(models.Model):
 	thefineline = models.IntegerField(default=0)

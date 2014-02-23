@@ -57,17 +57,19 @@ def populate_user(client, user_name):
 		playlist = Playlists(playlist_id=str(plist.id))
 		playlist.save()
 		# Create relationship between user and playlist.
+		user_playlist = UserPlaylist(user=user, playlist=playlist)
+		user_playlist.save()
 		for t in plist.tracks:
 			# Create track if it doesn't already exist in the database.
 			tracks2 = Tracks.objects.filter(track_id=str(t[u'id']))
+			print str(t[u'id']), 
 			if len(tracks2) == 0:
-				print "ADDING TRACK..."
 				try:
-					title=t.title
+					title=t[u'title']
 				except:
 					title=""
 				try:
-					genre=t.genre
+					genre=t[u'genre']
 				except:
 					genre=""
 				t2 = Tracks(track_id=str(t[u'id']), track_title=title, genre=genre)
@@ -97,7 +99,6 @@ def populate_user(client, user_name):
 			# Create track if it doesn't already exist.
 			ts = Tracks.objects.filter(track_id=str(t.id))
 			if len(ts) == 0:
-				print "ADDING TRACK..."
 				try:
 					title=t.title
 				except:
@@ -114,7 +115,22 @@ def populate_user(client, user_name):
 			artist_of = ArtistOf(user=artist, track=t1)
 			artist_of.save()
 
-def get_sorted_tracks():
+	return user.user_id
+
+def get_favourites(uid):
+	favourites = Favourites.objects.filter(user__user_id=uid)
+	return list(favourites)
+def get_tracks_on_playlist(uid):
+	playlists = list(UserPlaylist.objects.filter(user__user_id=uid))
+	top = []
+	for p in playlists:
+		top = top + list(TrackOnPlaylist.objects.filter(playlist__playlist_id=p.playlist.playlist_id))	
+	return top
+
+def get_tracks_by_following(uid):
+	tbf = ArtistOf.objects.filter(user__user_id=uid)
+	return list(tbf)
+def get_sorted_tracks(user_ids):
 	fav_tracks = []
 	playlists = []
 	favs_pts = 10
@@ -125,21 +141,24 @@ def get_sorted_tracks():
 	track_ids = {}
 
 	# Find all tracks that users have favourited.
-	favourites = Favourites.objects.order_by('track__track_title')
-	for t1 in favourites:
-		fav_tracks.append(t1.track)
+	for uid in user_ids:
+		fav_tracks = fav_tracks + get_favourites(uid)
 	
+	print fav_tracks
 	# Count how many users have favourited each song.
-	for t in fav_tracks:
-		print t.track_id, t.track_title
-		if t.track_id in track_ids:
-			track_ids[t.track_id] += favs_pts
+	print fav_tracks
+	for f in fav_tracks:
+		print f.track.track_id, f.track.track_title
+		if f.track.track_id in track_ids:
+			track_ids[f.track.track_id] += favs_pts
 		else:
-			track_ids[t.track_id] = favs_pts
+			track_ids[f.track.track_id] = favs_pts
 
 	#Find all the playlists for each user
 	#Count how many user have a song in one of their playlists
-	tracks_on_playlists = TrackOnPlaylist.objects.order_by('track__track_title')
+	tracks_on_playlists = []
+	for uid in user_ids:
+		tracks_on_playlists = tracks_on_playlists + get_tracks_on_playlist(uid)
 	for p in tracks_on_playlists:
 		if p.track.track_id in track_ids:
 			track_ids[p.track.track_id] += playlists_pts
@@ -149,7 +168,9 @@ def get_sorted_tracks():
 
 	#If we have enough songs, we don't need to get followings
 	if len(track_ids) < max_tracks: 
-		tracks_by_following = ArtistOf.objects.order_by('track__track_title')
+		tracks_by_following = []
+		for uid in user_ids:
+			tracks_by_following = tracks_by_following + get_tracks_by_following(uid)
 		# Increase the rank for each track in the followers.
 		for t in tracks_by_following:
 			if t.track.track_id in track_ids:
@@ -187,12 +208,17 @@ def playlist(request):
 		password='pressplay'
 	)
 
+	user_ids = []
 	for key,val in request.POST.iteritems():
 		if "user_name" in key and val != "":
+			users_list = Users.objects.filter(user_name=str(val))
 			if len(Users.objects.filter(user_name=str(val))) == 0:
-				populate_user(client, val)
+				user_id = populate_user(client, val)
+			else:
+				user_id = users_list[0].user_id
+			user_ids.append(user_id)
 
-	ranked_tracks = get_sorted_tracks()
+	ranked_tracks = get_sorted_tracks(user_ids)
 
 	tracks = map(lambda id: dict(id=id), ranked_tracks)
 	playlist = client.post('/playlists', playlist={
