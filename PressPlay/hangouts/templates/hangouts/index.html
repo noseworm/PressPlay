@@ -44,41 +44,50 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!--<script>
+    var counter = 2;
+    var limit = 10;
+    function addInput(divName){
+      if (counter == limit)  {
+          alert("You have reached the limit of adding " + counter + " inputs");
+       }
+      else {
+          var newdiv = document.createElement('div');
+          newdiv.innerHTML = (counter +1) + <input type="text" class="form-control" placeholder="username" name="user_name2">
+          "Entry " + (counter + 1) + " <br><input type='text' name='myInputs[]'>";
+          document.getElementById(divName).appendChild(newdiv);
+          counter++;
+     }
+}
+</script> -->
   </head>
 
   <body>
 
-    <div class="container">
+    <fieldset>
+<form class="form-signin" role="form" action="{% url 'hangouts:playlist' %}" method="post">
+<div id="dynamicInput">
+  <h2 class="form-signin-heading">Please add a Soundcloud username</h2>
+        {% csrf_token %}
+        <input type="text" class="form-control" placeholder="username" name="user_name1" required autofocus>
+        <input type="text" class="form-control" placeholder="username" name="user_name2">
+        <input type="text" class="form-control" placeholder="username" name="user_name3">
+</div>
+<!--<input type="button" value="Add another user" onClick="addInput('dynamicInput');"><br /> -->
+<button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Hang out</button>
+</form>
+</fieldset>
 
-    	<h1>My First JavaScript</h1>
-
-<p id="demo" 	color:red;
-text-align:right;
-font-size:20pt;>
-
-JavaScript can change the content of an HTML element.
-</p>
-
-<script>
-function myFunction()
-{
-x=document.getElementById("demo");  // Find the element
-x.innerHTML="Hello JavaScript!";    // Change the content
-}
-</script>
-
-<button type="button" onclick="myFunction()">Click Me!</button>
-
-      <form class="form-signin" role="form" action="{% url 'hangouts:playlist' %}" method="post">
+      <!--<form class="form-signin" role="form" action="{% url 'hangouts:playlist' %}" method="post">
         <h2 class="form-signin-heading">Please add a Soundcloud username</h2>
         {% csrf_token %}
-        <input type="text" class="form-control" placeholder="username" required autofocus>
-        <input type="text" class="form-control" placeholder="username" >
-        <input type="text" class="form-control" placeholder="username" >
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Hang out</button>
-      </form>
+        <input type="text" class="form-control" placeholder="username" name="user_name1" required autofocus>
+        <input type="text" class="form-control" placeholder="username" name="user_name2">
+        <input type="text" class="form-control" placeholder="username" name="user_name3">
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Hang out</button>
+      </form>-->
 
-    </div> <!-- /container -->
+    <!--</div> --> <!-- /container -->
 
 
     <!-- Bootstrap core JavaScript
