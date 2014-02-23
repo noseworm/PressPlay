@@ -1,14 +1,3 @@
-<!--<html>
-	<head>
-		<title>PressPlay</title>
-	</head>
-	<body>
-		<h1>Playlists</h1>
-		{{ embed_playlist |safe }}
-	</body>
-</html> -->
-
-
 <!DOCTYPE html>
 {% load staticfiles %}
 <html lang="en">
@@ -30,21 +19,10 @@
     <link href="cover.css" rel="stylesheet">
     <link type="text/css" href="{% static 'hangouts/css/bootstrap.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'hangouts/css/bootstrap-theme.css' %}" rel="stylesheet">
- <!--
-    <style> 
-background-image:url('winter-forest.jpg');
- <div id="fullscreen_post_bg" class="fullscreen_post_bg" style="background-image:url('https://24.media.tumblr.com/3a2411f858088deafbca57552723e460/tumblr_mvyrk1GQrT1r2lw7ro1_1280.jpg');"> </div> 
-	</style>
--->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
 
   <body style="background-image:url('https://24.media.tumblr.com/3a2411f858088deafbca57552723e460/tumblr_mvyrk1GQrT1r2lw7ro1_1280.jpg')" >
+<<<<<<< HEAD
 <div >
     
 
@@ -84,21 +62,40 @@ background-image:url('winter-forest.jpg');
           <div class="mastfoot">
             <div class="inner" >
               <p style="size: 10"> Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+=======
+    <div >
+      <div class="site-wrapper">
+        <div class="site-wrapper-inner">
+          <div class="cover-container">
+            <div class="masthead clearfix">
+            </div>
+            <div style="text-align:center;" >
+              <h1 class="cover-heading">Listening to:</h1>
+		          {{ embed_playlist |safe }}
+              <form action="{% url 'hangouts:index' %}" method="post">
+                <a href="#" class="btn btn-lg btn-default2" >HATE IT</a>
+                <a href="{% url 'hangouts:index' %}" class="btn btn-lg btn-primary"> Press Play Again?</a>
+                <a href="#" class="btn btn-lg btn-default3">LOVE IT</a>
+              </form>
+              <p style:"margin-bottom:10px;">Created by Rachel Bergmann, Brendan Gordon, Pascale Gourdeau, and Mike Noseworthy at McHacks at McGill University in February 2014.</p>
+              <p class="lead"></p>
+            </div>
+            <div class="mastfoot">
+              <div class="inner" >
+                <p size: 10;> Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+              </div>
+>>>>>>> 1981c3821d8fd8cad17e8dc5b5535043c7a0b09c
             </div>
           </div>
-
         </div>
-
       </div>
 
+      <!-- Bootstrap core JavaScript
+      ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src="../../dist/js/bootstrap.min.js"></script>
+      <script src="../../assets/js/docs.min.js"></script>
     </div>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/docs.min.js"></script>
-  </div>
   </body>
 </html>
