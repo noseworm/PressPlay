@@ -34,10 +34,15 @@ def populate_user(user_name):
 			track = Track(track_id=fav.id, track_name=fav.title, genre=fav.genre)
 			track.save()
 		# Create a favourite relationship.
-		#playlist
+		fav_rel = Favourites(uesr=user, track=track)
+		fav_rel.save()
+
 	playlists = client.get('/users/' + str(user) + '/playlists')
 	for plist in playlists:
 		# Create playlist if it doesn't already exist in the database.
+		try:
+			playlist = Playlists()
+		except:
 
 		# Create relationship between user and playlist.
 		for track in plist.tracks:
