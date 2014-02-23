@@ -134,11 +134,7 @@ def get_sorted_tracks(client, ids):
 		if track_ids[key] < threshold:
 			del track_ids[key]
 
-	# Return a list of sorted track ids based on each songs rank.
-
-	sorted_tracks = sorted(track_ids, key=track_ids.get)
-	sorted_tracks.reverse()
-
+	# Return a list of random tracks with rank above threshold
 	random_tracks = track_ids.keys()
 	random.shuffle(random_tracks)
 

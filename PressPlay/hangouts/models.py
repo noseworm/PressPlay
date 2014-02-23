@@ -37,4 +37,4 @@ class Following(models.Model):
 
 class UserPlaylist(models.Model):
 	user = models.ForeignKey('Users')
-	plalist = models.ForeignKey('Playlist')
+	playlist = models.ForeignKey('Playlist')
