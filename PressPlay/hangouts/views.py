@@ -1,6 +1,7 @@
 # Create your views here.
 from django.http import HttpResponse
 from django.template import RequestContext, loader
+from hangouts.models import Users, Tracks, Playlists, Favourites, ArtistOf, TrackOnPlaylist, UserPlaylist, Following
 import soundcloud
 
 # Index will contain a form for entering user information to generate the playlist.
@@ -18,6 +19,43 @@ def get_users(client, request):
 			user_id = client.get('/resolve', url='https://soundcloud.com/' + val).id
 			ids.append(user_id)
 	return ids
+
+def populate_user(user_name):
+	user_id = client.get('/resolve', url='https://soundcloud.com/' + val).id
+	user = User(user_id=user_id, user_name=user_name)
+	user.save()
+
+	favourites = client.get('/users/' + user_id + '/favorites')
+	for fav in favourites:
+		# Create track if it doesn't already exist in the database.
+		try:
+			track = Tracks.objects.filter(track_id=fav.id)
+		except:
+			track = Track(track_id=fav.id, track_name=fav.title, genre=fav.genre)
+			track.save()
+		# Create a favourite relationship.
+		#playlist
+	playlists = client.get('/users/' + str(user) + '/playlists')
+	for plist in playlists:
+		# Create playlist if it doesn't already exist in the database.
+
+		# Create relationship between user and playlist.
+		for track in plist.tracks:
+			# Create track if it doesn't already exist in the database.
+
+			# Create relationship between playlist and track.
+
+	following = client.get('/users/' + str(user) + '/followings')
+	for fol in following:
+		# Create artist if it doesn't already exist.
+
+		# Create relationship between artist and user.
+
+		tracks = client.get('/users/' + str(fol.id) + '/tracks')
+		for t in tracks:
+			# Create track if it doesn't already exist.
+
+			# Create relationship between artist and track.
 
 def get_sorted_tracks(client, ids):
 	fav_tracks = []

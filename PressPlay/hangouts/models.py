@@ -35,3 +35,6 @@ class Following(models.Model):
 	artist = models.ForeignKey('Users', related_name="artist")
 	user = models.ForeignKey('Users', related_name="user")
 
+class UserPlaylist(models.Model):
+	user = models.ForeignKey('Users')
+	plalist = models.ForeignKey('Playlist')
