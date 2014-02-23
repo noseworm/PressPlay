@@ -188,7 +188,8 @@ def get_sorted_tracks(user_ids):
 	for val in track_ids.values():
 		sum_pts += val
 	
-	threshold = sum_pts/len(track_ids)
+	if len(track_ids) != 0:
+		threshold = sum_pts/len(track_ids)
 
 	#If a song has an under average ranking, it's deleted from the playlist
 	for key in track_ids.keys():
@@ -213,9 +214,10 @@ def playlist(request):
 	)
 
 	user_ids = []
+	users_list = []
 	for key,val in request.POST.iteritems():
 		if "user_name" in key and val != "":
-			users_list = Users.objects.filter(user_name=str(val))
+			users_list += Users.objects.filter(user_name=str(val))
 			if len(Users.objects.filter(user_name=str(val))) == 0:
 				user_id = populate_user(client, val)
 			else:
@@ -224,9 +226,13 @@ def playlist(request):
 
 	ranked_tracks = get_sorted_tracks(user_ids)
 
+	title = ''
+	for usr in users_list:
+		title += str(usr) + ' '
+
 	tracks = map(lambda id: dict(id=id), ranked_tracks)
 	playlist = client.post('/playlists', playlist={
-		'title': 'New playlist',
+		'title': title,
 		'sharing': 'public',
 		'tracks': tracks
 	})
