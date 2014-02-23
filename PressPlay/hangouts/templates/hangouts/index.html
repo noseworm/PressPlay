@@ -15,7 +15,6 @@
 	</body>
 </html> -->
 
-
 <!DOCTYPE html>
 {% load staticfiles %}
 <html lang="en">
@@ -36,14 +35,6 @@
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-   
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <script>
     var counter = 2;
     var limit = 10;
@@ -62,12 +53,8 @@
   </script>
   </head>
 
-<body style="background-image:url('https://24.media.tumblr.com/3a2411f858088deafbca57552723e460/tumblr_mvyrk1GQrT1r2lw7ro1_1280.jpg');">
-
-<!--<script stype="text/javascript" src="addInput.js" ></script>-->
-
-  
-
+<body style="background-image:url('https://24.media.tumblr.com/3a2411f858088deafbca57552723e460/tumblr_mvyrk1GQrT1r2lw7ro1_1280.jpg');">  
+  <h1>Press Play</h1>
   <fieldset>
   <form class="form-signin" role="form" action="{% url 'hangouts:playlist' %}" method="post">	
     {% csrf_token %}
@@ -84,21 +71,5 @@
   </form>
   </fieldset>
 
-      <!--<form class="form-signin" role="form" action="{% url 'hangouts:playlist' %}" method="post">
-        <h2 class="form-signin-heading">Please add a Soundcloud username</h2>
-        {% csrf_token %}
-        <input type="text" class="form-control" placeholder="username" required autofocus name="user_name1">
-        <input type="text" class="form-control" placeholder="username" name="user_name2">
-        <input type="text" class="form-control" placeholder="username" name="user_name3">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Hang out</button>
-      </form>-->
-
-
-    <!--</div> --> <!-- /container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
   </body>
 </html>

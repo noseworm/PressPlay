@@ -193,6 +193,7 @@ def get_sorted_tracks(user_ids):
 	#If a song has an under average ranking, it's deleted from the playlist
 	for key in track_ids.keys():
 		if track_ids[key] < threshold:
+			print "Removing: " + str(track_ids[key])
 			del track_ids[key]
 
 	# Return a list of random tracks with rank above threshold
