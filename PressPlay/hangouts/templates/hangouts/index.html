@@ -58,17 +58,17 @@
   <fieldset>
   <form class="form-signin" role="form" action="{% url 'hangouts:playlist' %}" method="post">	
     {% csrf_token %}
-    <div style="text-align:center">
+    
       <div id="dynamicInput">
         <h2 class="form-signin-heading">Please add a Soundcloud username</h2>
         <div id="dynamicInput">
           <input type="text" class="form-control" placeholder="username" name="user_name1" required autofocus>
         </div>
       </div>
-      <button class="btn btn-lg btn-primary" type="submit" id="submit">Hang out</button>
-    </div>
+      	<div style="text-align:center">
+          <button class="btn btn-lg btn-default" type="submit" id="submit">Hang out</button>
   </form>
-  <button class="btn btn-lg btn-primary" onClick="addInput('dynamicInput')">Have more friends?</button>
+  <button class="btn btn-lg btn-default" onClick="addInput('dynamicInput')">Have more friends?</button></div>
   </fieldset>
 
   </body>
