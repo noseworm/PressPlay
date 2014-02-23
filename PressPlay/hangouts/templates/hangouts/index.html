@@ -55,7 +55,7 @@
 
 <body style="background-image:url('https://24.media.tumblr.com/3a2411f858088deafbca57552723e460/tumblr_mvyrk1GQrT1r2lw7ro1_1280.jpg');">  
   <h1>Press Play</h1>
-  <fieldset>
+
   <form class="form-signin" role="form" action="{% url 'hangouts:playlist' %}" method="post">	
     {% csrf_token %}
     
@@ -67,9 +67,10 @@
       </div>
       	<div style="text-align:center">
           <button class="btn btn-lg btn-default" type="submit" id="submit">Hang out</button>
+          <button type="button" class="btn btn-lg btn-default" onClick="addInput('dynamicInput')">Have more friends?</button></div>
+        </div>
   </form>
-  <button class="btn btn-lg btn-default" onClick="addInput('dynamicInput')">Have more friends?</button></div>
-  </fieldset>
-
+  
+  
   </body>
 </html>
