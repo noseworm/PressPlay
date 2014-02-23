@@ -22,27 +22,41 @@ def get_users(client, request):
 def get_sorted_tracks(client, ids):
 	tracks = []
 	track_ids = {}
+	following_points = 3
+
 	# Find all tracks that users have favourited.
 	for user in ids:
 		tracks = tracks + list(client.get('/users/' + str(user) + '/favorites'))
-	print "Users: ",
-	print ids
-	print "Tracks: ",
-	print tracks
 	# Count how many users have favourited each song.
 	for t in tracks:
-		print t.title, t.id
 		if t.id in track_ids:
 			track_ids[t.id] += 1
 		else:
 			track_ids[t.id] = 1
 
-	print track_ids
+	print "GET FOLLOWERS"
+	# Get the list of users followed by each user. 
+	following = []
+	for user in ids:
+		print "GET FOLLOWERS: USER " + str(user)
+		following = following + list(client.get('/users/' + str(user) + '/followings'))
+
+	print "GET TRACKS"
+	# Get a list of tracks that each follower has created.
+	tracks_by_following = []
+	for f in following:
+		tracks_by_following = tracks_by_following + list(client.get('/users/' + str(f.id) + '/tracks'))
+	print tracks_by_following
+	# Increase the rank for each track in the followers.
+	for t in tracks_by_following:
+		if t.id in track_ids:
+			track_ids[t.id] += following_points
+		else:
+			track_ids[t.id] = following_points
 
 	# Return a list of sorted track ids based on each songs rank.
 	sorted_tracks = sorted(track_ids, key=track_ids.get)
 	sorted_tracks.reverse()
-	print sorted_tracks
 	return sorted_tracks
 
 # Playlist will contain a customized soundcloud playlist.
