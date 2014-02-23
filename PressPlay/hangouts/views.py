@@ -2,6 +2,7 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 import soundcloud
+import random
 
 # Index will contain a form for entering user information to generate the playlist.
 def index(request):
@@ -30,7 +31,9 @@ def get_sorted_tracks(client, ids):
 	track_ids = {}
 
 	# Find all tracks that users have favourited.
+	print "GET FAVS"
 	for user in ids:
+		print "GET USER " + str(user)
 		fav_tracks = fav_tracks + list(client.get('/users/' + str(user) + '/favorites'))
 			
 	# Count how many users have favourited each song.
@@ -40,8 +43,10 @@ def get_sorted_tracks(client, ids):
 		else:
 			track_ids[t.id] = favs_pts
 
+	print "GET PLAYLIST"
 	#Find all the playlists for each user
 	for user in ids:
+		print "GET USER " + str(user)
 		playlists = playlists + list(client.get('/users/' + str(user) + '/playlists'))
 
 	#Count how many user have a song in one of their playlists
@@ -91,10 +96,11 @@ def get_sorted_tracks(client, ids):
 	sorted_tracks = sorted(track_ids, key=track_ids.get)
 	sorted_tracks.reverse()
 
-	"""for key, val in sorted_tracks.items():
-		curr_val = sorted_tracks[key]"""
+	random_tracks = track_ids.keys()
+	random.shuffle(random_tracks)
 
-	return sorted_tracks
+
+	return random_tracks
 
 # Playlist will contain a customized soundcloud playlist.
 def playlist(request):
