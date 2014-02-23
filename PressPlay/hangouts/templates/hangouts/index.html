@@ -31,9 +31,7 @@
     <!-- Bootstrap core CSS -->
     <link type="text/css" href="{% static 'hangouts/css/bootstrap.css' %}" rel="stylesheet">
     <link type="text/css" href="{% static 'hangouts/css/bootstrap-theme.css' %}" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
+    <link type="text/css" href="{% static 'hangouts/css/signin.css' %}" rel="stylesheet">
 
     <script>
     var counter = 2;
@@ -54,20 +52,20 @@
   </head>
 
 <body style="background-image:url('https://24.media.tumblr.com/3a2411f858088deafbca57552723e460/tumblr_mvyrk1GQrT1r2lw7ro1_1280.jpg');">  
-  <h1>Press Play</h1>
+  <h1 style="text-align:center">please enter a Soundcloud username</h1>
 
   <form class="form-signin" role="form" action="{% url 'hangouts:playlist' %}" method="post">	
     {% csrf_token %}
     
       <div id="dynamicInput">
-        <h3 class="form-signin-heading">Enter your SoundCloud usernames:</h3>
         <div id="dynamicInput">
-          <input type="text" class="form-control" placeholder="username" name="user_name1" required autofocus>
+          <input style="margin-left:auto;margin-right:auto" type="text" class="form-control" placeholder="username" name="user_name1" required autofocus>
         </div>
       </div>
       	<div style="text-align:center">
-          <button class="btn btn-lg btn-default" type="submit" id="submit">Hang out</button>
-          <button type="button" class="btn btn-lg btn-default" onClick="addInput('dynamicInput')">Have more friends?</button></div>
+          <button type="button" class="btn btn-lg btn-default" onClick="addInput('dynamicInput')" style="text-align:center" style="text-align:center" >More friends</button>
+          <button class="btn btn-lg btn-default" type="submit" id="submit" style="text-align:center" >Hang out</button>
+        </div>
         </div>
   </form>
   
