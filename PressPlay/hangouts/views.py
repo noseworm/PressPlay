@@ -57,17 +57,17 @@ def populate_user(user_name):
 		# Create relationship between artist and user.
 
 		tracks = client.get('/users/' + str(fol.id) + '/tracks')
-	for t in tracks:
+	#for t in tracks:#
 			# Create track if it doesn't already exist.
 
 			# Create relationship between artist and track.
 
-	def get_sorted_tracks(client, ids):
-		fav_tracks = []
-		playlists = []
-		favs_pts = 10
-		playlists_pts = 7
-		following_points = 2
+def get_sorted_tracks(client, ids):
+	fav_tracks = []
+	playlists = []
+	favs_pts = 10
+	playlists_pts = 7
+	following_points = 2
 	max_tracks = 50
 
 	track_ids = {}
@@ -166,13 +166,13 @@ def playlist(request):
 def Democracy(decision):
 	
 
-	if decision = 1:
+	if decision == 1:
 		government = Democracy(thefineline = government.thefineline+1)
 
-	if decision = -1:
+	if decision == -1:
 		government = Democracy(thefineline = government.thefineline-1)
 
-	if(government.thefineline = -5):
+	if(government.thefineline == -5):
 		HttpResponseRedirect("/hangouts/playlists.html")
 
 
