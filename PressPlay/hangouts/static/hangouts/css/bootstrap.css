@@ -1690,7 +1690,9 @@ output {
 }
 .form-control {
   display: block;
-  width: 100%;
+  margin-left:auto;
+  margin-right:auto;
+  width: 500px;
   height: 34px;
   padding: 6px 12px;
   font-size: 14px;
@@ -2096,6 +2098,7 @@ fieldset[disabled] .btn-default.active {
   color: #fff;
   background-color: #428bca;
   border-color: #357ebd;
+  margin:5px;
 }
 .btn-primary:hover,
 .btn-primary:focus,
