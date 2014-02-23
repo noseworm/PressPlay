@@ -37,4 +37,7 @@ class Following(models.Model):
 
 class UserPlaylist(models.Model):
 	user = models.ForeignKey('Users')
-	plalist = models.ForeignKey('Playlist')
+	playlist = models.ForeignKey('Playlists')
+
+class Democracy(models.Model):
+	thefineline = models.IntegerField(default=0)

@@ -1,7 +1,7 @@
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
-from hangouts.models import Users, Tracks, Playlists, Favourites, ArtistOf, TrackOnPlaylist, UserPlaylist, Following
+from hangouts.models import Users, Tracks, Playlists, Favourites, ArtistOf, TrackOnPlaylist, UserPlaylist, Following, Democracy
 import soundcloud
 
 # Index will contain a form for entering user information to generate the playlist.
@@ -34,7 +34,7 @@ def populate_user(user_name):
 			track = Track(track_id=fav.id, track_name=fav.title, genre=fav.genre)
 			track.save()
 		# Create a favourite relationship.
-		fav_rel = Favourites(uesr=user, track=track)
+		fav_rel = Favourites(user=user, track=track)
 		fav_rel.save()
 
 	playlists = client.get('/users/' + str(user) + '/playlists')
@@ -45,29 +45,29 @@ def populate_user(user_name):
 		except:
 
 		# Create relationship between user and playlist.
-		for track in plist.tracks:
+			for track in plist.tracks:
 			# Create track if it doesn't already exist in the database.
 
 			# Create relationship between playlist and track.
 
-	following = client.get('/users/' + str(user) + '/followings')
+				following = client.get('/users/' + str(user) + '/followings')
 	for fol in following:
 		# Create artist if it doesn't already exist.
 
 		# Create relationship between artist and user.
 
 		tracks = client.get('/users/' + str(fol.id) + '/tracks')
-		for t in tracks:
+	for t in tracks:
 			# Create track if it doesn't already exist.
 
 			# Create relationship between artist and track.
 
-def get_sorted_tracks(client, ids):
-	fav_tracks = []
-	playlists = []
-	favs_pts = 10
-	playlists_pts = 7
-	following_points = 2
+	def get_sorted_tracks(client, ids):
+		fav_tracks = []
+		playlists = []
+		favs_pts = 10
+		playlists_pts = 7
+		following_points = 2
 	max_tracks = 50
 
 	track_ids = {}
@@ -163,8 +163,18 @@ def playlist(request):
 	context = RequestContext(request, {'embed_playlist': embed_info.html},)
 	return HttpResponse(template.render(context))
 
-def callback(request):
-	template = loader.get_template('hangouts/callback.html')
-	context = RequestContext(request, {},)
-	return HttpResponse(template.render(context))
+def Democracy(decision):
+	
+
+	if decision = 1:
+		government = Democracy(thefineline = government.thefineline+1)
+
+	if decision = -1:
+		government = Democracy(thefineline = government.thefineline-1)
+
+	if(government.thefineline = -5):
+		HttpResponseRedirect("/hangouts/playlists.html")
+
+
+
 
