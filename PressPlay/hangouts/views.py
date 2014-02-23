@@ -24,9 +24,10 @@ def get_sorted_tracks(client, ids):
 	playlists = []
 	favs_pts = 10
 	playlists_pts = 7
+	following_points = 2
+	max_tracks = 50
 
 	track_ids = {}
-	following_points = 2
 
 	# Find all tracks that users have favourited.
 	for user in ids:
@@ -39,44 +40,60 @@ def get_sorted_tracks(client, ids):
 		else:
 			track_ids[t.id] = favs_pts
 
-	print "GET FOLLOWERS"
-	# Get the list of users followed by each user. 
-	following = []
-	for user in ids:
-		print "GET FOLLOWERS: USER " + str(user)
-		following = following + list(client.get('/users/' + str(user) + '/followings'))
-
-	print "GET TRACKS"
-	# Get a list of tracks that each follower has created.
-	tracks_by_following = []
-	for f in following:
-		tracks_by_following = tracks_by_following + list(client.get('/users/' + str(f.id) + '/tracks'))
-	print tracks_by_following
-	# Increase the rank for each track in the followers.
-	for t in tracks_by_following:
-		if t.id in track_ids:
-			track_ids[t.id] += following_points
-		else:
-			track_ids[t.id] = following_points
-
 	#Find all the playlists for each user
 	for user in ids:
 		playlists = playlists + list(client.get('/users/' + str(user) + '/playlists'))
 
 	#Count how many user have a song in one of their playlists
 	for p in playlists:
-		print "Playlists: " 
-		print "Tracks: "
-		print p.tracks[0][u'id']
 		for t in p.tracks:
 			if t[u'id'] in track_ids:
 				track_ids[t[u'id']] += playlists_pts
 			else:
 				track_ids[t[u'id']] = playlists_pts
 
+
+	#If we have enough songs, we don't need to get followings
+	if len(track_ids) < max_tracks: 
+		print "GET FOLLOWERS"
+		# Get the list of users followed by each user. 
+		following = []
+		for user in ids:
+			print "GET FOLLOWERS: USER " + str(user)
+			following = following + list(client.get('/users/' + str(user) + '/followings'))
+
+		print "GET TRACKS"
+		# Get a list of tracks that each follower has created.
+		tracks_by_following = []
+		for f in following:
+			tracks_by_following = tracks_by_following + list(client.get('/users/' + str(f.id) + '/tracks'))
+		# Increase the rank for each track in the followers.
+		for t in tracks_by_following:
+			if t.id in track_ids:
+				track_ids[t.id] += following_points
+			else:
+				track_ids[t.id] = following_points
+
+	#Establishes a threshold (average)
+	sum_pts = 0
+	for val in track_ids.values():
+		sum_pts += val
+	
+	threshold = sum_pts/len(track_ids)
+
+	#If a song has an under average ranking, it's deleted from the playlist
+	for key in track_ids.keys():
+		if track_ids[key] < threshold:
+			del track_ids[key]
+
 	# Return a list of sorted track ids based on each songs rank.
+
 	sorted_tracks = sorted(track_ids, key=track_ids.get)
 	sorted_tracks.reverse()
+
+	"""for key, val in sorted_tracks.items():
+		curr_val = sorted_tracks[key]"""
+
 	return sorted_tracks
 
 # Playlist will contain a customized soundcloud playlist.
@@ -107,3 +124,4 @@ def callback(request):
 	template = loader.get_template('hangouts/callback.html')
 	context = RequestContext(request, {},)
 	return HttpResponse(template.render(context))
+
