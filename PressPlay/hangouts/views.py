@@ -224,7 +224,7 @@ def playlist(request):
 			else:
 				user_id = users_list[0].user_id
 			user_ids.append(user_id)
-
+	print users_list
 	ranked_tracks = get_sorted_tracks(user_ids)
 
 	title = ''
